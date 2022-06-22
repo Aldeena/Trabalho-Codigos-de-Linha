@@ -1,3 +1,8 @@
+from opcode import opname
+
+def index_in_list(a_list, index):     
+    return index < len(a_list)
+
 def binaryDecode(array):
     #printar grafico aqui
     string_ints = []
@@ -14,7 +19,24 @@ def binaryDecode(array):
         values.append(int(i,2))
     return values
 
+
+'''def paraBin(array):
+
+    msg = []
+    for palavra in range(0, len(array)):
+        msg = msg + array[palavra]
+
+    l, m= [], []
+
+    for i in msg:
+        l.append(ord(i))
+    for i in l:
+        m.append(int(bin(i)[2:]))
+    return m
+    '''
+
 def convertBin(array):
+    #binary_string = paraBin(array)
     values = []
     for char in array:
         values.append(f'{ord(char):08b}'.format(8))
@@ -24,11 +46,68 @@ def convertBin(array):
     for bit in values:
         bit_array.append(int(bit))
     return bit_array
+
+
+'''def convertPokemon(array):
+
+    arquivo = open("Pokedex.txt", "r")
+    pokemons = arquivo.readlines()
+    #print(pokemons)
+
+    criptografia = []
+
+    values = []
+
+    for char in array:
+        values.append(ord(char))
+
+    print(values)
+
+    for j in range(0, len(array)):
+        criptografia.append(pokemons[values[j]])
+
+    arquivo.close()
+
+    return criptografia	
+    '''
+
+def encodeMLT3(array):
+    states = ['+' , '0', '-', '0']
+    sinal = []
+
+    index = 3
+    i = 0
+
+    for i in range(0, len(array)):
+        if array[i] == 1:
+            index = (index + 1) % 4
+        #print(states[index])
+        sinal.append(states[index])
+
+    return sinal
     
+
+def DecodeMLT3(array):
+    mensagem = []
+
+    i = 0
+       
+    while i < len(array):
+        print(array[i])
+        if index_in_list(array, i+1):
+            if array[i] != array[i+1]:
+                mensagem.append(1)
+
+            else:
+                mensagem.append(0)        
+
+        i = i + 1
+
+    return mensagem
+
+
     """
     Essa é uma função para convertar para binário
-    """
-
     
     print(num+"\n")
     vet_bin = [] * 8
@@ -45,12 +124,24 @@ def convertBin(array):
 
     print("\n")
 
+    """
+
 # Thomas e seus amigos
 
-vet_poke = list('Thomas e seus amigos')
-print(vet_poke)
-values = convertBin(vet_poke)
+mensagem = ('v')
+print(mensagem)
+
+#criptografia = convertPokemon(mensagem)
+#print(criptografia)
+
+values = convertBin(mensagem)
 
 print(values)
-print(binaryDecode(values))
+
+sinal = encodeMLT3(values)
+print(sinal)
+
+decodificado = DecodeMLT3(sinal)
+print(decodificado)
+#print(binaryDecode(values))
 
