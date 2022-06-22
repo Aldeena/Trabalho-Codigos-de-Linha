@@ -20,17 +20,17 @@ def binaryDecode(array):
 def DecodeMLT3(array):
     mensagem = []
 
-    i = 0
+    if array[0] != '0':
+        mensagem.append(1)
+    else:
+        mensagem.append(0)
        
-    while i < len(array):
-        print(array[i])
+    for i in range(len(array)):
         if index_in_list(array, i+1):
             if array[i] != array[i+1]:
                 mensagem.append(1)
 
             else:
-                mensagem.append(0)        
-
-        i = i + 1
+                mensagem.append(0)
 
     return mensagem
