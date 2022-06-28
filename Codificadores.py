@@ -1,12 +1,25 @@
+from base64 import encode
+from opcode import opname
+from cryptography.fernet import Fernet
+
 def index_in_list(a_list, index):     
     return index < len(a_list)
 
-def convertBin(array):
-    #Função para codificar o sinal, para uma codificação em
+def asciiEncode(array):
     values = []
     for char in array:
-        values.append(f'{ord(char):08b}'.format(8))
-    
+        values.append(f'{ord(char)}')
+
+    return values
+
+def binEncode(array):
+    values = []
+    for i in array:
+        i = int(i)
+        values.append(bin(i)[2:].zfill(8))
+
+    print (values)
+
     values = list(''.join(values))
     bit_array = []
     for bit in values:
@@ -92,3 +105,21 @@ def convertPokemon(array):
         ++seq;
     }
     '''
+mensagem = ('Thomas e seus amigos')
+print(mensagem)
+
+key = Fernet.generate_key()
+
+fernet = Fernet(key)
+
+criptografado = fernet.encrypt(mensagem.encode())
+print(criptografado)
+
+asciiString = asciiEncode(str(criptografado))
+print(asciiString)
+
+values = binEncode(criptografado)
+print(values)
+
+sinal = encodeMLT3(values)
+print(sinal)

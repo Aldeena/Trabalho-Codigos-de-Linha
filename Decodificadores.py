@@ -1,3 +1,7 @@
+from base64 import encode
+from opcode import opname
+from cryptography.fernet import Fernet
+
 def index_in_list(a_list, index):     
     return index < len(a_list)
 
@@ -34,3 +38,33 @@ def DecodeMLT3(array):
                 mensagem.append(0)
 
     return mensagem
+
+'''
+mensagem = ('Thomas e seus amigos')
+print(mensagem)
+
+key = Fernet.generate_key()
+
+fernet = Fernet(key)
+
+criptografado = fernet.encrypt(mensagem.encode())
+print(criptografado)
+
+asciiString = asciiEncode(str(criptografado))
+print(asciiString)
+
+values = binEncode(criptografado)
+print(values)
+
+sinal = encodeMLT3(values)
+print(sinal)
+'''
+
+decodificado = DecodeMLT3(sinal)
+print(decodificado)
+
+bitsRefeitos = binaryDecode(values)
+print(bitsRefeitos)
+
+retorno = fernet.decrypt(criptografado).decode()
+print(retorno)
