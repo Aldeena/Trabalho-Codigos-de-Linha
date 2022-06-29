@@ -42,7 +42,21 @@ def encodeMLT3(array):
 
     return sinal
 
+def encrypt(array):
+    values = []
 
+    for i in array:
+        i = int(i)
+
+        if i%2 != 0:
+            i = i+128
+            
+        if i > 255:
+            i = i-255
+        
+        values.append(i)
+
+    return values
 '''
 
 Função desnecessária criada para converter uma string em uma lista de pokemons, sendo um pra cada

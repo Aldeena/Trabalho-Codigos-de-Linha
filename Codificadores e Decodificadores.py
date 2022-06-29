@@ -44,6 +44,15 @@ def asciiEncode(array):
 
     return values
 
+def asciiDecode(array):
+
+    res = ""
+
+    for i in array:
+        res = res + chr(i)
+
+    return res
+
 def binEncode(array):
     values = []
     for i in array:
@@ -59,10 +68,11 @@ def binEncode(array):
     return bit_array
 
 
-'''def encrypt(array):
+def encrypt(array):
     values = []
+
     for i in array:
-        i = i+128
+        i = int(i)
 
         if i%2 != 0:
             i = i+128
@@ -72,7 +82,24 @@ def binEncode(array):
         
         values.append(i)
 
-    return values'''
+    return values
+
+def decrypt(array):
+
+    values = []
+
+    for i in array:
+        i = int(i)
+
+        if i%2 != 0:
+            i = i-128
+
+        if i < 0:
+            i = i + 255
+
+        values.append(i)
+
+    return values
 
 
 '''def convertPokemon(array):
@@ -155,23 +182,24 @@ def DecodeMLT3(array):
 
 # Thomas e seus amigos
 
-mensagem = ('Thomas e seus amigos')
+mensagem = ('Jesus')
 print(mensagem)
 
-key = Fernet.generate_key()
+#key = Fernet.generate_key()
 
-fernet = Fernet(key)
+#fernet = Fernet(key)
 
-criptografado = fernet.encrypt(mensagem.encode())
-print(criptografado)
-
-asciiString = asciiEncode(str(criptografado))
+asciiString = asciiEncode(mensagem)
 print(asciiString)
+
+criptografado = encrypt(asciiString) #fernet.encrypt(mensagem.encode())
+print(criptografado)
 
 #criptografia = convertPokemon(mensagem)
 #print(criptografia)
 
-values = binEncode(criptografado)
+values = binEncode(list(criptografado))
+print(values)
 
 sinal = encodeMLT3(values)
 print(sinal)
@@ -179,8 +207,11 @@ print(sinal)
 decodificado = DecodeMLT3(sinal)
 print(decodificado)
 
-bitsRefeitos = binaryDecode(values)
+bitsRefeitos = binaryDecode(decodificado)
 print(bitsRefeitos)
 
-retorno = fernet.decrypt(criptografado).decode()
-print(retorno)
+codificado = decrypt(criptografado)#fernet.decrypt(criptografado).decode()
+print(codificado)
+
+final = asciiDecode(codificado)
+print(final)

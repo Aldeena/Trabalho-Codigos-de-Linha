@@ -39,6 +39,32 @@ def DecodeMLT3(array):
 
     return mensagem
 
+def decrypt(array):
+
+    values = []
+
+    for i in array:
+        i = int(i)
+
+        if i%2 != 0:
+            i = i-128
+
+        if i < 0:
+            i = i + 255
+
+        values.append(i)
+
+    return values
+
+def asciiDecode(array):
+
+    res = ""
+
+    for i in array:
+        res = res + chr(i)
+
+    return res
+    
 '''
 mensagem = ('Thomas e seus amigos')
 print(mensagem)
